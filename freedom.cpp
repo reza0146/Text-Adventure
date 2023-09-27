@@ -1,5 +1,7 @@
 #include <iostream>
+#include <map>
 
+#include "misc.hpp"
 #include "question.hpp"
 
 int main() {
@@ -8,26 +10,39 @@ int main() {
     bool has_brass_key = false;
     bool has_candle = false;
 
-    
-        
-    Question console_question("There is a lightened candle on the console. Also, the candle has a drawer. What do you want to do?",
-        {"Pick up the candle",
-        "Open the drawer"});
+    std::map<std::string, int> state_map({{"hallway", 1}, 
+        {"door", 2},
+        {"console", 3},
+        {"exit", 999}});
 
-    
-
-    
 
     std::cout << "====Welcom to the game====\n";
     std::cout << "!At any point in the game type 999 to exit!\n";
     std::cout << "You wake up in the middle of a hallway. You don't remember anything and your goal is to find the way outside the building.\n";
 
     bool exit = false;
-    
-
-    
+    std::string state = "hallway";
 
 
 
+    while (!exit) {
+
+        switch (state_map[state]) {
+            case 1: //hallway
+                state = Hallway();
+                break;
+            case 2: //door
+                state = Door(has_gold_key);
+                break;
+            case 3: //console
+                state = Console(has_brass_key, has_candle);
+                break;
+            case 999:
+                std::cout << "Goodbye!\n";
+                exit = true;
+            
+        }
+
+    }
 
 }
