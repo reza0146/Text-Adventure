@@ -13,6 +13,7 @@ int main() {
     std::map<std::string, int> state_map({{"hallway", 1}, 
         {"door", 2},
         {"console", 3},
+        {"stairway", 4},
         {"exit", 999}});
 
 
@@ -36,6 +37,9 @@ int main() {
                 break;
             case 3: //console
                 state = Console(has_brass_key, has_candle);
+                break;
+            case 4: //stairway
+                state = StairWay(has_brass_key, has_candle, has_gold_key);
                 break;
             case 999:
                 std::cout << "Goodbye!\n";
