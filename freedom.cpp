@@ -14,6 +14,7 @@ int main() {
         {"door", 2},
         {"console", 3},
         {"stairway", 4},
+        {"freedom", 5},
         {"exit", 999}});
 
 
@@ -40,6 +41,10 @@ int main() {
                 break;
             case 4: //stairway
                 state = StairWay(has_brass_key, has_candle, has_gold_key);
+                break;
+            case 5: //freedom
+                std::cout << "You have the gold key that opens the freedom door! You won! You are free! Great job.\n";
+                state = "exit";
                 break;
             case 999:
                 std::cout << "Goodbye!\n";

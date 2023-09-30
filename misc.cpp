@@ -92,6 +92,8 @@ std::string StairWay(const bool &brass_key, const bool &candle, bool &gold_key) 
     std::cout << "======\nYou approach the stairway going down to a basement. The way to the basement is dark and you cannot see what's down there." 
         "You take the courage and slowly go down. Suddenly, Boom! The door on top of the stairway behind you closes and locks.\n";
 
+    std::string vault_back = "";
+
     if (!candle) {
         std::cout << "======\nIt's dark and you cannot see anything."
         "You do not have anything to lighten the room and start exploring."
@@ -104,11 +106,17 @@ std::string StairWay(const bool &brass_key, const bool &candle, bool &gold_key) 
             
             basement_question.Ask();
             switch (basement_question.answer_) {
-                case 1:
-                    Vault(gold_key);
+                case 1: {
+                    vault_back = Vault(gold_key);
+                    if (vault_back == "exit") {
+                        return "exit";
+                    } else {
+                        continue;
+                    }
+                }
                     break;
                 case 2: 
-                    // Desk();
+                    Desk();
                     break;
                 case 3: 
                     return "hallway";
@@ -151,11 +159,13 @@ std::string Vault(bool &gold_key) {
         std::cout << "If you enter more than three wrong passwords, the game will be over.\nTo go back to the basement, enter 111.\n";
 
         Question passcode_question("Enter the passcode: ", {});
-        while (passcode_question.answer_ != 20230607 && attempts < 3) {
+
+        while (passcode_question.answer_ != 20230928 && attempts < 3) {
             passcode_question.Ask();
             if (passcode_question.answer_ == 111) {
                 break;
             }
+            attempts++;
         }
 
         if (attempts == 3) {
@@ -169,4 +179,8 @@ std::string Vault(bool &gold_key) {
             return "basement";
         }
     }
+}
+
+void Desk() {
+    std::cout << "You see a letter on the desk that says:\n\tDear player, you do not have much time. Hurry!\nReza\n2023 09 28\n";
 }
